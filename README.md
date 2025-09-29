@@ -43,4 +43,24 @@ to access any folders or files we can go to root directory
 <img width="1610" height="394" alt="image" src="https://github.com/user-attachments/assets/0918d7e0-0cb6-4f1d-aae1-1145a682e2d4" />
 this way we can access the drives - C or D and the folders or files present in them.
 
-3) 
+3) System Prep
+   Make sure your system is ready:
+<img width="1668" height="645" alt="image" src="https://github.com/user-attachments/assets/80d8b504-b01a-451e-9ec0-8085c10f3003" />
+
+<img width="1705" height="848" alt="image" src="https://github.com/user-attachments/assets/b97eedf2-3bb4-4cba-9c6f-de7e8d06adcf" />
+
+Install vLLM package on your IDE (Pycharm)
+<img width="1243" height="365" alt="image" src="https://github.com/user-attachments/assets/9fdbe1bb-8af5-4530-a318-4c01a516b753" />
+
+
+Install Build Dependencies
+
+Make sure you have the essentials:
+
+sudo apt update
+sudo apt install -y build-essential python3-dev git wget curl
+sudo apt install -y libopenblas-dev libomp-dev
+Also include CUDA installation for additional GPU usage 
+<img width="1523" height="230" alt="image" src="https://github.com/user-attachments/assets/ff3ad173-517c-42a5-9116-a9a5c10886f4" />
+
+
