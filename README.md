@@ -1,7 +1,7 @@
 This repository acts as  detailed guide from setting up vLLM from scratch along with installing linux environment- Ubuntu to fine-tuning the LLM for... and finally integrating it into a RAG pipeline for developing an intelligent asisstant.
 
 #1 INTRODUCTION 
-- why use vLLM? in what ways ways is it better than other LLMS?
+- why use vLLM? in what ways is it better than other LLMS?
   
 Developed at UC Berkley, Vllm was specifically designed to address speed and memory challenges that come with maintaining large language models.
 according to IBM studies, 
