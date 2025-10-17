@@ -1,4 +1,4 @@
-This repository acts as  detailed guide from setting up vLLM from scratch along with installing linux environment- Ubuntu to fine-tuning the LLM for... and finally integrating it into a RAG pipeline for developing an intelligent asisstant.
+This repository acts as  detailed guide from setting up vLLM from scratch along with installing linux environment- Ubuntu to fine-tuning the LLM and finally integrating it into a RAG pipeline for developing an intelligent asisstant.
 
 #1 INTRODUCTION 
 - why use vLLM? in what ways is it better than other LLMS?
