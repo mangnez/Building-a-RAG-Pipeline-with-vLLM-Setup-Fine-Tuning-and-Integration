@@ -1,6 +1,8 @@
-this repository acts as  detailed guide from setting up vLLM from scratch along with installing linux environment- Ubuntu to fine-tuning the LLM for... and finally integrating it into a RAG pipeline for developing an intelligent asisstant.
+This repository acts as  detailed guide from setting up vLLM from scratch along with installing linux environment- Ubuntu to fine-tuning the LLM for... and finally integrating it into a RAG pipeline for developing an intelligent asisstant.
 
-#1 question - why use vLLM? in what ways ways is it better than other LLMS?
+#1 INTRODUCTION 
+- why use vLLM? in what ways ways is it better than other LLMS?
+  
 Developed at UC Berkley, Vllm was specifically designed to address speed and memory challenges that come with maintaining large language models.
 according to IBM studies, 
 Serving LLMs in production—especially on VMs or Kubernetes—requires massive computation per word, unlike traditional workloads. This leads to high costs, slow response times, and memory inefficiency. Traditional frameworks often hoard GPU memory, forcing over-provisioning. As user load increases, batch processing bottlenecks cause latency spikes. Scaling to large organizations exceeds single-GPU limits, making efficient deployment challenging.
@@ -62,5 +64,93 @@ sudo apt install -y build-essential python3-dev git wget curl
 sudo apt install -y libopenblas-dev libomp-dev
 Also include CUDA installation for additional GPU usage 
 <img width="1523" height="230" alt="image" src="https://github.com/user-attachments/assets/ff3ad173-517c-42a5-9116-a9a5c10886f4" />
+
+~$ nvidia-smi
+<img width="1058" height="394" alt="image" src="https://github.com/user-attachments/assets/f76d5c5a-94e5-43f2-a4c3-afa5ed540fbb" />
+
+<img width="573" height="28" alt="image" src="https://github.com/user-attachments/assets/de2bebdb-d63e-45b5-a83c-ee139b7837af" />
+
+$ pip install torch torchvision torchaudio - - index-url https: //download
+. pytorch. org/whl/cu121
+huggingface hub pip install vllm
+
+## Authenticated with Hugging Face
+Create a hugging face account and under your credentials create an access token with read permissions, these are sufficient to install the model we will be using.
+
+huggingface-cli login
+
+Successfully authenticated and downloaded model files
+
+## Downloaded GGUF Model via Python
+
+from huggingface_hub import hf_hub_download
+
+hf_hub_download(
+    repo_id="TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
+    filename="mistral-7b-instruct-v0.2.Q4_K_M.gguf",
+    local_dir="models"
+)
+
+✅ Exit code 0 confirmed successful download
+
+## Attempted to run vLLM with GGUF model
+
+
+python3 -m vllm.entrypoints.openai.api_server \
+  --model models/mistral-7b-instruct-v0.2.Q4_K_M.gguf \
+  --device cpu \
+  --host 0.0.0.0 \
+  --port 8080
+
+This command fails because we are trying to run a GGUF model with vLLM 
+vLLM does not support this format, it doesn't support CPU- only interface.
+
+RuntimeError: Failed to infer device type
+
+libcuda.so.1: cannot open shared object file
+-------------------------------------------------------------------------
+## Use a Supported Model Format
+Use a model in PyTorch or safetensors format, like:
+
+mkdir models
+cd models
+
+--model mistralai/Mistral-7B-Instruct-v0.2
+
+This model is hosted on Hugging Face and works with vLLM.
+
+## Ensure You Have a CUDA-Capable GPU
+
+After installing nvidia drivers we can check
+nvidia-smi
+
+then,
+
+pip install vllm
+
+
+python3 -m vllm.entrypoints.openai.api_server \
+  --model mistralai/Mistral-7B-Instruct-v0.2 \
+  --host 0.0.0.0 \
+  --port 8080
+
+
+Now we can test this endpoint-
+
+curl http://localhost:8080/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "What is gravity?",
+    "max_tokens": 100
+  }'
+
+Now let us try to build a simple chatbot using a RAG pipeline and the LLM we just configured.
+
+
+
+
+
+
+
 
 
